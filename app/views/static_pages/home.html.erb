@@ -1,0 +1,32 @@
+<div class="panel">
+    <h1>Welcome to Deckbuilder App!</h1>
+</div>
+<div class="row">
+    <% if !signed_in? %>
+        <div class="large-6 columns">
+            <h2>Build</h2>
+                <p>Incredibly badness and seemless interface for deck building</p>
+            <h2>Store</h2>
+                <p>A home for all yer decks!!11ONE</p>
+            <h2>Share</h2>
+                <p>Share with you friends, if you have any. </p>
+        </div>
+        <div class="large-6 columns">
+            <h1>Sign up</h1>
+            <%= form_for(@user) do |f| %>
+                <%= render 'shared/error_messages', object: f.object %>
+                <%= f.label :name %>
+                <%= f.text_field :name %>
+                <%= f.label :email %>
+                <%= f.text_field :email %>
+                <%= f.label :password %>
+                <%= f.password_field :password %>
+                <%= f.label :password_confirmation %>
+                <%= f.password_field :password_confirmation %>
+                <%= f.submit "Create my account", class: "button large" %>
+            <% end %>
+        </div>
+    <% else %>
+        Welcome, Daniel
+    <% end %>
+</div>
