@@ -23,16 +23,18 @@
     <% end %>
 </table>
 <% if current_user?(@user) %>
-    <%= form_for(@deck, url: user_decks_path(@user.id)) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-        <%= f.label :description %>
-        <%= f.text_field :description %>
-        <%= fields_for :cards do |c| %>
-            <%= c.label :names %>
-            <%= c.text_area :names %>
+    <div class="large-5 columns">
+        <%= form_for(@deck, url: user_decks_path(@user.id)) do |f| %>
+            <%= render 'shared/error_messages', object: f.object %>
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+            <%= f.label :description %>
+            <%= f.text_field :description %>
+            <%= fields_for :cards do |c| %>
+                <%= c.label :names %>
+                <%= c.text_area :names, class: "deck-input"%>
+            <% end %>
+            <%= f.submit "Add", class: "button" %>
         <% end %>
-        <%= f.submit "Add", class: "button" %>
-    <% end %>
+    </div>
 <% end %>

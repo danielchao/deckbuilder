@@ -3,3 +3,16 @@
 </div>
 
 <p>Description: <%= @deck.description %></p>
+
+<table>
+    <% @cards.count.each do |card, number| %>
+        <tr>
+             <td><%= number %></td>
+             <td><%= card %></td>
+        </tr>
+    <% end %>
+</table>
+
+    
+    
+    
