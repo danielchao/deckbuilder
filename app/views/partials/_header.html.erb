@@ -2,7 +2,7 @@
     <ul class="title-area">
         <!-- Title Area -->
         <li class="name">
-        <h1><%= link_to "Generic name for an App", root_path %></h1>
+        <h1><%= link_to "BD;CBE", root_path %></h1>
         </li>
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -11,20 +11,20 @@
         <!-- Right Nav Section -->
         <ul class="right">
             <li class="divider hide-for-small"></li>
-            <li><%= link_to "Home", root_path %></li>
-            <li class="divider hide-for-small"></li>
-            <li><%= link_to "About", about_path %></li>
-            <li class="divider hide-for-small"></li>
             <% if signed_in? %>
-                <li><%= link_to "Users" %></li>
+                <li><%= link_to "Users", users_path %></li>
                 <li class="has-dropdown"><a>Account</a>
                     <ul class="dropdown">
-                        <li><%= link_to 'Profile' %></li>
-                        <li><%= link_to 'Settings' %></li>
+                        <li><%= link_to 'Decks', user_path(current_user.id) %></li>
+                        <li><%= link_to 'Settings', edit_user_path(current_user.id)%></li>
                         <li><%= link_to 'Sign Out', session_path("current"), method: :delete %></li>
                     </ul>
                 </li>
             <% else %>
+                <li><%= link_to "Home", root_path %></li>
+                <li class="divider hide-for-small"></li>
+                <li><%= link_to "About", about_path %></li>
+                <li class="divider hide-for-small"></li>
                 <li class="has-form">
                     <%= form_for :session, url: sessions_path do |f| %>
                         <div class="row collapse">

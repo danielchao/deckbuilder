@@ -24,7 +24,7 @@
       <%= render 'partials/header' %>
       <div class="row">
           <% flash.each do |key, value| %>
-              <div class="alert-box"><%= value %></div>
+              <div class="alert-box alert-<%= key %>"><%= value %></div>
           <% end %>
       </div>
       <div class='row'>

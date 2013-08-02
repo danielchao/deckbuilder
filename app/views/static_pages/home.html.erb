@@ -1,5 +1,5 @@
 <div class="panel">
-    <h1>Welcome to Deckbuilder App!</h1>
+    <h1>BeckDuild: Cattlebruiser Edition</h1>
 </div>
 <div class="row">
     <% if !signed_in? %>
@@ -27,6 +27,6 @@
             <% end %>
         </div>
     <% else %>
-        Welcome, Daniel
+        <h2>Welcome, <%= current_user.name %></h2>
     <% end %>
 </div>
