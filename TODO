@@ -1,0 +1,13 @@
+Priority
+=====================
+model setup: decks, cards, contains
+controller setup: deck
+parse & save decks
+retrieve decks
+edit decks
+
+
+Future
+=====================
+search cards + add cards function
+

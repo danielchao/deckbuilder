@@ -12,3 +12,6 @@
  *= require foundation_and_overrides
  *= require_tree .
  */
+
+@import 'foundation_and_overrides';
+@import 'foundation';

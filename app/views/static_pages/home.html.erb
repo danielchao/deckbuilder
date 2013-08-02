@@ -28,5 +28,10 @@
         </div>
     <% else %>
         <h2>Welcome, <%= current_user.name %></h2>
+        <p>What can I do you for?</p>
+        <ul>
+             <li><%= link_to "MAKE DECKS", user_path(current_user) %></li>
+             <li><%= link_to "C USERS", users_path %></li>
+        </ul>
     <% end %>
 </div>

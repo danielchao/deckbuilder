@@ -2,7 +2,10 @@ Deckbuilder::Application.routes.draw do
     get "sessions/new"
     root 'static_pages#home'
     match '/about', to: 'static_pages#about', via: 'get'
-    resources :users
+    resources :users do
+        resources :decks
+    end
+
     resources :sessions, only: [:create, :destroy]
     # The priority is based upon order of creation: first created -> highest priority.
     # See how all your routes lay out with "rake routes".

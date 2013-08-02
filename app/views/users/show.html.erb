@@ -1,2 +1,38 @@
 <h1>YO DIS B <%= @user.name %></h1>
 
+<h2>Decks:</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    <% @decks.each do |d| %>
+        <tr>
+            <td><%= d.name %></td>
+            <td><%= d.description %></td>
+            <td>
+                <% if current_user?(@user) %>
+                    <%= link_to "Delete", 
+                        user_deck_path(user_id: @user, id: d), \
+                        method: :delete, data: { confirm: "Are you sure?" } %>
+                <% end %>
+                <%= link_to "Show", user_deck_path(user_id: @user, id: d) %>
+            </td>
+        </tr>
+    <% end %>
+</table>
+<% if current_user?(@user) %>
+    <%= form_for(@deck, url: user_decks_path(@user.id)) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.label :description %>
+        <%= f.text_field :description %>
+        <%= fields_for :cards do |c| %>
+            <%= c.label :names %>
+            <%= c.text_area :names %>
+        <% end %>
+        <%= f.submit "Add", class: "button" %>
+    <% end %>
+<% end %>
