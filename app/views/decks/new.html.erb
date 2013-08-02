@@ -11,3 +11,11 @@
         <%= f.submit "Add", class: "button" %>
     <% end %>
 </div>
+<div class="large-7 columns">
+    <h2>Card Search</h2>
+    <%= form_for :card, url: query_card_path, html: { id: "search-form" } do |f| %>
+        <%= f.text_field :name %>
+    <% end %>
+    <div class="preview"></div>
+</div>
+

@@ -5,6 +5,7 @@ Deckbuilder::Application.routes.draw do
     resources :users
     resources :decks
     resources :sessions, only: [:create, :destroy]
+    post 'card' => 'cards#query', as: :query_card
     # The priority is based upon order of creation: first created -> highest priority.
     # See how all your routes lay out with "rake routes".
 

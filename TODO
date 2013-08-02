@@ -1,9 +1,7 @@
 Priority
 =====================
-parse & save decks
-retrieve decks
-edit decks
-
+search box: search by card name
+on click 'parse'  -> deck is parsed into cards, displayed on right
 
 Future
 =====================
