@@ -1,9 +1,8 @@
 Priority
 =====================
-search box: search by card name
-on click 'parse'  -> deck is parsed into cards, displayed on right
-
-Future
-=====================
-search cards + add cards function
+grab more than 1 page
+differentiate between types
+parse deck - count cards 
+display deck contents
+search options
 

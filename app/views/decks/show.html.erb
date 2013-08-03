@@ -2,7 +2,6 @@
     <h2>Deck Info: <%= @deck.name %></h2>
 </div>
 
-
 <% if current_user?(@deck.user) %>
     <div class="large-5 columns">
         <%= form_for(@deck, url: deck_path) do |f| %>

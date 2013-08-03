@@ -1,5 +1,5 @@
 <h2>Make a new deck</h2>
-<div class="large-5 columns">
+<div class="large-3 columns">
     <%= form_for(@deck, url: decks_path) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <%= f.label :name %>
@@ -7,15 +7,28 @@
         <%= f.label :description %>
         <%= f.text_field :description %>
         <%= f.label :content %>
-        <%= f.text_area :content, class: "deck-input"%>
+        <%= f.text_area :content, id: "deck-input"%>
         <%= f.submit "Add", class: "button" %>
     <% end %>
 </div>
-<div class="large-7 columns">
-    <h2>Card Search</h2>
-    <%= form_for :card, url: query_card_path, html: { id: "search-form" } do |f| %>
-        <%= f.text_field :name %>
-    <% end %>
-    <div class="preview"></div>
+<div class="large-9 columns">
+    <div class="section-container auto" data-section>
+      <section>
+        <p class="title" data-section-title><a href="#panel1">View Deck</a></p>
+        <div class="content" data-section-content>
+          <p>Content of section 1.</p>
+        </div>
+      </section>
+      <section>
+        <p class="title" data-section-title><a href="#panel2">Add Cards</a></p>
+        <div class="content" data-section-content>
+            <h2>Card Search</h2>
+            <%= form_for :card, url: query_card_path, html: { id: "search-form" } do |f| %>
+                <%= f.text_field :name %>
+            <% end %>
+            <div id="preview"></div>
+        </div>
+      </section>
+    </div>
 </div>
 
