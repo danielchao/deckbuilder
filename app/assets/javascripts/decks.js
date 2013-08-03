@@ -4,6 +4,7 @@ $(document).ready(function() {
         delay(function(){
             $.post(that.action, $(that).serialize(), function(data) {
                 $('#preview').html("");
+                console.log(data);
                 for (var i = data.length-1; i >= 0; i--) {
                     $('#preview').append('<img alt="' + data[i][1] + '" class="card" src="' + data[i][0] + '">');
                 }

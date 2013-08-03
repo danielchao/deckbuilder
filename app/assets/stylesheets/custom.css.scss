@@ -25,8 +25,9 @@ $errorRed: #CC0000;
 
 #preview { 
     overflow-y: scroll;
-    max-height: 445px;
-    width: 700px;
+    max-height: 800px;
+    max-width: 100%;
+    /*width: 700px;*/
 }
 
 .card {
