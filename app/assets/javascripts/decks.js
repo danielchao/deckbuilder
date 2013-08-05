@@ -4,7 +4,6 @@ $(document).ready(function() {
         delay(function(){
             $.post(that.action, $(that).serialize(), function(data) {
                 var per_page = 20;
-                //console.log(data);
                 $("#list-cards").pagination(data.length, {
                     items_per_page:per_page,
                     callback:handlePaginationClick
@@ -19,15 +18,15 @@ $(document).ready(function() {
                                 + data[i][1] 
                                 + '</a></td></tr>'); 
                         }
+                    $(".card").mouseenter(function(e) {
+                        displayCard($(this).prop("id"), e);
+                    }).mouseleave(function() {
+                        $('#preview').fadeOut(0);
+                    }).click(function() {
+                        addCard($(this).html());
+                    });
                     return false;
                 }
-                $(".card").mouseenter(function(e) {
-                    displayCard($(this).prop("id"), e);
-                }).mouseleave(function() {
-                    $('#preview').fadeOut(0);
-                }).click(function() {
-                    addCard($(this).html());
-                });
             },"json")
         }, 300);
     });
@@ -38,7 +37,6 @@ $(document).ready(function() {
 var displayCard = function(link, e) {
     $img = $("#preview");
     $img.attr("src", link).fadeIn(0);
-    console.log($(window).scrollTop());
     $img.offset({
         top: $(window).scrollTop() + 100 
     });
