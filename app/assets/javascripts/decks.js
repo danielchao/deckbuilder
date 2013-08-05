@@ -3,14 +3,30 @@ $(document).ready(function() {
         var that = this;
         delay(function(){
             $.post(that.action, $(that).serialize(), function(data) {
-                $('#preview').html("");
-                console.log(data);
-                for (var i = data.length-1; i >= 0; i--) {
-                    $('#preview').append('<img alt="' + data[i][1] + '" class="card" src="' + data[i][0] + '">');
+                var per_page = 20;
+                //console.log(data);
+                $("#list-cards").pagination(data.length, {
+                    items_per_page:per_page,
+                    callback:handlePaginationClick
+                });
+                function handlePaginationClick(new_page_index, pagination_container) {
+
+                    for(var i = new_page_index * per_page; 
+                        i < per_page + new_page_index * per_page && i < data.length;
+                        i++) {
+                            $('#list-cards').append('<tr><td><a class="card" id= "'
+                                + data[i][0] + '">'
+                                + data[i][1] 
+                                + '</a></td></tr>'); 
+                        }
+                    return false;
                 }
-                $(".card").click(function() {
-                    addCard($(this).attr('alt'));
-                    //$('#deck-input').val($('#deck-input').val() + $(this).attr('alt') + "\n");
+                $(".card").mouseenter(function(e) {
+                    displayCard($(this).prop("id"), e);
+                }).mouseleave(function() {
+                    $('#preview').fadeOut(0);
+                }).click(function() {
+                    addCard($(this).html());
                 });
             },"json")
         }, 300);
@@ -18,8 +34,15 @@ $(document).ready(function() {
     $('#search-form').submit(function() {
         return false;
     });
-
 });
+var displayCard = function(link, e) {
+    $img = $("#preview");
+    $img.attr("src", link).fadeIn(0);
+    console.log($(window).scrollTop());
+    $img.offset({
+        top: $(window).scrollTop() + 100 
+    });
+}
 
 var addCard = function(card) {
     var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/]*)$/;
@@ -45,3 +68,4 @@ var delay = (function() {
         timer = setTimeout(callback, ms);
     };
 })();
+

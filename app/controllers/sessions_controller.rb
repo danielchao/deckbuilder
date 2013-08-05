@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
             redirect_to root_url, notice: "Logged in!"
         else
             #flash.now.alert = "Email and password is invalid"
-            redirect_to root_url, notice: "Email and password is invalid!"
+            redirect_to root_url, flash: { error: "Email and password is invalid!" }
         end
     end
 

@@ -18,19 +18,7 @@ $errorRed: #CC0000;
     @include alert($errorRed);
 }
 
-#deck-input {
-    max-width: 100%;
-    height: 15em;
-}
+#preview {
+    right: 0; 
 
-#preview { 
-    overflow-y: scroll;
-    max-height: 800px;
-    max-width: 100%;
-    /*width: 700px;*/
-}
-
-.card {
-    float: left;
-    cursor: pointer;
 }

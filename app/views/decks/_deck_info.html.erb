@@ -1,0 +1,10 @@
+<%= form_for(@deck, url: path) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+    <%= f.label :content %>
+    <%= f.text_area :content, id: "deck-input"%>
+    <%= f.submit "Add", class: "button" %>
+<% end %>

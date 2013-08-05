@@ -1,19 +1,10 @@
-<div class="panel">
-    <h2>Deck Info: <%= @deck.name %></h2>
-</div>
-
+<h2>Edit Deck</h2>
 <% if current_user?(@deck.user) %>
-    <div class="large-5 columns">
-        <%= form_for(@deck, url: deck_path) do |f| %>
-            <%= render 'shared/error_messages', object: f.object %>
-            <%= f.label :name %>
-            <%= f.text_field :name %>
-            <%= f.label :description %>
-            <%= f.text_field :description %>
-            <%= f.label :content %>
-            <%= f.text_area :content, class: "deck-input"%>
-            <%= f.submit "Save", class: "button" %>
-        <% end %>
+    <div class="large-3 columns">
+        <%= render 'deck_info', path: deck_path %>
+    </div>
+    <div class="large-9 columns">
+        <%= render 'maker' %>
     </div>
 <% else %>
     <p>Description: <%= @deck.description %></p>
