@@ -4,10 +4,21 @@ class CardsController < ApplicationController
         #Structure of url: /mi/en/207.html
         #Structure of pic: /scans/en/mi/207.jpg
         regex = /<td><a href="(.*)">(.*)<.*<.*\n.*<td>(.*)<.*\n.*<td>(.*)</
+        # regex for non-land
+        single_page_regex = /<a\shref="(.*)">(.*)<\/a>(?:\n.*){7}<p>(.*),.*\n\s+(.*)\s+\(/
+        # regex for land
+        single_page_regex2 = /a\shref="(.*)">(.*)<\/a>(?:\n.*){7}<p>(.*)/
 
         name = params[:card][:name]
         name.gsub!(' ', '+')
-        imgs = get_images(name).scan(regex)
+        curl = get_images(name)
+        imgs = curl.scan(regex)
+        if imgs.count == 0 
+            imgs = curl.scan(single_page_regex)
+        end
+        if imgs.count == 0 
+            imgs = curl.scan(single_page_regex2)
+        end
         regex = /\/(.*)\/(.*)\/(.*).html/
 
         (0...imgs.count).each do |i|
