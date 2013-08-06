@@ -49,7 +49,7 @@ $(document).ready(function() {
             var match = regex.exec(lines[i]);
             if (match) {
                 $(that).append($('<input>').attr({
-                    name: "card[unique_name]",
+                    name: "card[name]",
                     value: match[2],
                     type: 'hidden'
                 }));
