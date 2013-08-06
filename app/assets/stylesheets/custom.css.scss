@@ -18,7 +18,36 @@ $errorRed: #CC0000;
     @include alert($errorRed);
 }
 
-#preview {
-    right: 0; 
-
+#deck-input {
+    max-width: 100%;
+    height: 20em;
 }
+
+#preview {
+    /*float: right;*/
+    position: absolute;
+}
+
+.card-box {
+    float: left;
+    display: block;
+    position: relative;
+    padding: 1px;
+    margin: 10px;
+    height: 320px;
+    min-width: 200px;
+}
+
+#generate-form {
+    clear: both;
+}
+
+.content{
+    clear: both;
+}
+
+.deck-image {
+    position: absolute;
+}
+
+

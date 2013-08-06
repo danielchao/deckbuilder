@@ -1,21 +1,24 @@
 <div class="section-container auto" data-section>
   <section>
-    <p class="title" data-section-title><a href="#panel2">Add Cards</a></p>
+    <p class="title" data-section-title><a href="#panel1">View</a></p>
+    <div class="content" data-section-content>
+        <div id = "deck-preview"></div>
+        <%= form_for :card, url: query_card_path, html: { id: "generate-form" } do |f| %>
+            <%= f.submit "Generate", class: "button" %>
+        <% end %>
+    </div>
+  </section>
+  <section>
+    <p class="title" data-section-title><a href="#panel2">Search</a></p>
     <div class="content" data-section-content>
         <h2>Card Search</h2>
         <%= form_for :card, url: query_card_path, html: { id: "search-form" } do |f| %>
             <%= f.text_field :name %>
         <% end %>
         <table id="list-cards"> </table>
-        <div class="large-8 large-offset-5 columns">
+        <div class="large-9 columns large-offset-5">
             <img id="preview"/>
         </div>
-    </div>
-  </section>
-  <section>
-    <p class="title" data-section-title><a href="#panel1">View Deck</a></p>
-    <div class="content" data-section-content>
-      <p>Content of section 1.</p>
     </div>
   </section>
 </div>
