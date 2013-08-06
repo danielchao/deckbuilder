@@ -1,14 +1,1 @@
-<h2>Edit Deck</h2>
-<% if current_user?(@deck.user) %>
-    <div class="large-3 columns">
-        <%= render 'deck_info', path: deck_path %>
-    </div>
-    <div class="large-9 columns">
-        <%= render 'maker' %>
-    </div>
-<% else %>
-    <p>Description: <%= @deck.description %></p>
-    <div class="panel">
-        <%= @deck.content %>
-    </div>
-<% end %>
+

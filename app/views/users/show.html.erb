@@ -1,27 +1,42 @@
-<h1>YO DIS B <%= @user.name %></h1>
-
-<h2>Decks:</h2>
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Actions</th>
-    </tr>
-    <% @decks.each do |d| %>
+<h1><%= @user.name %>'s Vault</h1>
+<div class="large-3 columns">
+    <table>
         <tr>
-            <td><%= d.name %></td>
-            <td><%= d.description %></td>
-            <td>
-                <% if current_user?(@user) %>
-                    <%= link_to "Delete", 
-                        deck_path(d), \
-                        method: :delete, data: { confirm: "Are you sure?" } %>
-                <% end %>
-                <%= link_to "Show", deck_path(d) %>
-            </td>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
         </tr>
+        <% @decks.each do |d| %>
+            <tr>
+                <td><%= d.name %></td>
+                <td><%= d.description %></td>
+                <td>
+                    <% if current_user?(@user) %>
+                        <%= link_to "Delete", 
+                            deck_path(d), \
+                            method: :delete, data: { confirm: "Are you sure?" } %>
+                        <%= link_to "Edit", edit_deck_path(d) %>
+                    <% end %>
+                    <a id='<%= d.name %>'>Show</a>
+                </td>
+            </tr>
+        <% end %>
+    </table>
+    <% if current_user?(@user) %>
+        <%= link_to "Deck Editor", new_deck_path, class: "button" %>
     <% end %>
-</table>
-<% if current_user?(@user) %>
-    <%= link_to "Deck Maker", new_deck_path, class: "button" %>
-<% end %>
+</div>
+<div class="large-9 columns">
+    <div class="section-container auto" data-section>
+      <section>
+        <p class="title" data-section-title><a href="#panel2">List</a></p>
+        <div class="content" data-section-content>
+        </div>
+      </section>
+      <section>
+        <p class="title" data-section-title><a href="#panel1">View</a></p>
+        <div class="content" data-section-content>
+        </div>
+      </section>
+    </div>
+</div>

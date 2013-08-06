@@ -1,15 +1,16 @@
 .pagination {
     font-size: 80%;
+    margin: 10px;
 }
 
 .pagination a {
     text-decoration: none;
-    border: solid 1px #AAE;
-    color: #15B;
+    border: solid 1px #DDD;
+    color: black;
 }
 
 .pagination a, .pagination span {
-    padding: 0em 0.5em;
+    padding: 0.5em 0.5em;
     margin-right: 5px;
     margin-bottom: 5px;
     min-width:1em;
@@ -17,9 +18,8 @@
 }
 
 .pagination .current {
-    background: #26B;
-    color: #fff;
-    border: solid 1px #AAE;
+    background: #DEDEDE;
+    border: solid 1px #DDD;
 }
 
 .pagination .current.prev, .pagination .current.next{

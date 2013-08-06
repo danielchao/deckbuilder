@@ -20,6 +20,16 @@ class DecksController < ApplicationController
     
     def new
         @deck  = Deck.new
+        @decks = current_user.decks
+    end
+
+    def edit
+        if current_user?(User.find(Deck.find(params[:id]).user_id))
+            @deck = Deck.find(params[:id])
+            @decks = current_user.decks
+        else
+            redirect_to root_path, flash: { error: "Unauthorized edit"}
+        end
     end
 
     def update
@@ -40,9 +50,9 @@ class DecksController < ApplicationController
         redirect_to user_path(current_user.id)
     end
 
-    def show
-        @deck = Deck.find(params[:id])
-    end
+    #def show
+        #@deck = Deck.find(params[:id])
+    #end
 
     private
         def deck_params

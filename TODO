@@ -1,8 +1,17 @@
 Priority
 =====================
-filter and sort search list
+    Deck editor panel - (select deck from list to edit)
+    vault (deck home) viewer (hover to show card + display whole deck) 
 
+    deck sharing (instead of users page) feature: share deck
+        home page feed (recent activity)
+        rate other people's decks
+            comment on other people's decks
+        search: similar decks
+        trending cards? 
 
-display deck contents
-grab prices
-search options
+Maker 
+=====================
+    filter and sort search list
+    search options
+    grab prices (another tab)
