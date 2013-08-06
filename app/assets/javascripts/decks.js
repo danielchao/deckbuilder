@@ -3,6 +3,7 @@ $(document).ready(function() {
         var that = this;
         delay(function(){
             $.post(that.action, $(that).serialize(), function(data) {
+
                 var per_page = 20;
                 $("#list-cards").pagination(data.length, {
                     items_per_page:per_page,
@@ -38,11 +39,22 @@ $(document).ready(function() {
     $('#search-form').submit(function() {
         return false;
     });
+    $(".edit_deck").submit(function() {
+        $("#deck-input").val($("#deck-div").html()); 
+    });
 
     $("#generate-form").submit(function() {
         var that = this;
+        //need to alter this
+
         $("#deck-preview").html("");
-        var lines = $("#deck-input").val().split("\n");
+        $("#deck-input").val($("#deck-div").html()); 
+        var text = $("#deck-div").html()
+            .replace(/\<div[^\>\<]*\>/g, '\n')
+            .replace(/\<br[^\>\<]*\>/g, '\n')
+            .replace(/\<[^\>\<]+\>/g, '')
+            .replace(/&nbsp;/g, ' ');
+        var lines = text.split("\n");
         var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/]*)(.*)$/;
         var count = 0;
         for (i in lines) {
@@ -89,8 +101,8 @@ var renderCards = function(count, form) {
                     + "px' class='deck-image' src='" + data[0][0] + "'>");
             }
             $('#deck-preview').append('<div class = "card-box">'
-                + imgs
-                + '</div>');
+                    + imgs
+                    + '</div>');
         }
     });
 }

@@ -37,7 +37,7 @@ class DecksController < ApplicationController
         correct_user(@deck)
         if @deck.update_attributes(deck_params)
             flash[:success] = "Deck updated"
-            redirect_to deck_path(@deck) 
+            redirect_to edit_deck_path(@deck) 
         else
             render 'edit'
         end
@@ -50,9 +50,12 @@ class DecksController < ApplicationController
         redirect_to user_path(current_user.id)
     end
 
-    #def show
-        #@deck = Deck.find(params[:id])
-    #end
+    def show
+        @deck = Deck.find(params[:id])
+        respond_to do |format|
+            format.js
+        end
+    end
 
     private
         def deck_params

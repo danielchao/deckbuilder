@@ -5,7 +5,8 @@
     <%= f.label :description %>
     <%= f.text_field :description %>
     <%= f.label :content %>
-    <%= f.text_area :content, id: "deck-input"%>
+    <%= f.text_field :content, id: "deck-input"%>
+    <div id='deck-div' contenteditable> </div>
     <%= f.submit "Save", class: "button" %>
     <p>Found <span id="count">0</span> cards</p>
 <% end %>

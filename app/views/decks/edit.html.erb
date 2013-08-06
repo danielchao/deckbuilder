@@ -1,0 +1,13 @@
+<% content_for :head do  %>
+    <script type="text/javascript" charset="utf-8">
+        <%= render 'partials/user.js'  %>
+    </script>
+<% end %>
+<h2>Edit Deck | <%= link_to "Back", user_path(current_user) %></h2>
+<div class="large-3 columns">
+    <%= render 'deck_info', path: deck_path %>
+</div>
+<div class="large-9 columns">
+    <%= render 'maker' %>
+</div>
+
