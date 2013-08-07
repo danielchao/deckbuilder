@@ -2,6 +2,7 @@ Priority
 =============
 
     refactor javascript
+    automatically parse cards upon save
     add cards should already have link
     deck sharing (instead of users page) feature: share deck
     visualize whole deck on user home
