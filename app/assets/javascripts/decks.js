@@ -23,9 +23,7 @@ function paginator(per_page) {
                 + '</a></td></tr>'); 
         }
 
-        var hover = hoverHandler($(".card"));
-        hover.bindHover();
-        hover.bindAddOnClick();
+        hoverHandler($(".card")).bindHover().bindAddOnClick();
         return false;
     }
     that.handleSearchRequest = function(form) {
@@ -44,141 +42,198 @@ function paginator(per_page) {
 
 function dealer() {
     var that = {};
-    that.generateDeck = function(form) {
-        $("#count").html("0");
-        $("#deck-preview").html("");
-        $("#deck-input").val($("#deck-div").html()); 
-        var text = $("#deck-div").html()
-            .replace(/\<div[^\>\<]*\>/g, '\n')
-            .replace(/\<br[^\>\<]*\>/g, '\n')
-            .replace(/\<[^\>\<]+\>/g, '')
-            .replace(/&nbsp;/g, ' ');
-        var lines = text.split("\n");
-        var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/\(\)]*)$/;
-        var count = 0;
-        for (i in lines) {
-            var match = regex.exec(lines[i]);
-            if (match) {
-                $(form).append($('<input>').attr({
-                    name: "card[name]",
-                    value: match[2],
-                    type: 'hidden'
-                }));
-                that.renderCards(parseInt(match[1]), form);
-                $(form).children().last().remove();
-            } 
+    var requests = 0;
+    var locked = false;
+    
+    var renderImageStack = function(count, imgSrc, destination) {
+        //Stagger Images Cards
+        var imgs = "";
+        var cardGap = 8;
+        if (count > 10) {
+            width = 200;
+            count = 10;
+            cardGap = 35 / count;
         }
-        return false;
+        var width = 220 - cardGap * (count - 1);
+        for (var i = 0; i < count; i++) { 
+            imgs += ("<img style='left: "
+                    + parseInt(i * cardGap)
+                    + "px; top: "
+                    + parseInt(i * cardGap / 0.7011)
+                    + "px; width: "
+                    + width
+                    + "px' class='deck-image' src='" + imgSrc + "'>");
+        }
+        destination.append('<div class = "card-box">'
+                + imgs
+                + '</div>');
     }
-    that.renderCards = function(count, form) {
+
+    var parseCards = function(count, form, renderImages, callback) {
         $.post(form.action, $(form).serialize(), function(data) {
             if (data.length == 1) {
                 $("#count").html(parseInt($("#count").html())+count);
 
                 //Format cards in content box
                 content = $("#deck-div").html();
-                content = content.replace(/&nbsp;/g, ' ');
-                var tag = "<a class='match' id = '" + data[0][0] + "'>" + count + " " + data[0][1] + "</a>";
-                var re = new RegExp(count + " " + data[0][1], "i");
-                content = content.replace(re, tag);
-                $("#deck-div").html(content);
-                var hover = hoverHandler($(".match"));
-                hover.bindHover();
 
-                //Stagger Images Cards
-                var imgs = "";
-                var cardGap = 8;
-                if (count > 10) {
-                    width = 200;
-                    count = 10;
-                    cardGap = 50 / count;
+                content = content.replace(/&nbsp;/g, ' ');
+
+                var tag = "<a class='match' id = '" + data[0][0] + "'>" + count + " " + data[0][1] + "</a>";
+                var escapedName = data[0][1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                var re = new RegExp("(<[^<>]*>)?" + count + " " + escapedName + "(<[^<>]*>)?", "i");
+
+                content = content.replace(re, tag);
+
+                if (!re.exec(content)){
+                    console.log(escapedName);
+                    console.log(re);
+                    console.log(content);
+                    console.log(data[0][1]);
                 }
-                var width = 220 - cardGap * (count - 1);
-                for (var i = 0; i < count; i++) { 
-                    imgs += ("<img style='left: "
-                            + parseInt(i * cardGap)
-                            + "px; top: "
-                            + parseInt(i * cardGap / 0.7011)
-                            + "px; width: "
-                            + width
-                            + "px' class='deck-image' src='" + data[0][0] + "'>");
+
+                $("#deck-div").html(content);
+                hoverHandler($(".match")).bindHover();
+
+                if (renderImages) {
+                    renderImageStack(count, data[0][0], $('#deck-preview'));
                 }
-                $('#deck-preview').append('<div class = "card-box">'
-                        + imgs
-                        + '</div>');
+            }
+            //callback upon last request finishing
+            requests -= 1;
+            if (requests == 0) {
+                callback();
+                locked = false;
             }
         });
+    }
+
+    //Show images (for Vault Page)
+    that.generateImages = function() {
+        var stacks = $("#deck-list").find('a');
+        $("#deck-preview").html("");
+        for (var i = 0; i < stacks.length; i++) {
+            var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/\(\)]*)$/;
+            var match = regex.exec($(stacks[i]).html());
+            renderImageStack(match[1], $(stacks[i]).attr("id"), $("#deck-preview"));
+        }
+    }
+
+    //Parse deck + show images (for Edit Page)
+    that.generateDeck = function(form, renderImages, callback) {
+        if (!locked) {
+            locked = true;
+            $("#count").html("0");
+            $("#deck-preview").html("");
+            $("#deck-input").val($("#deck-div").html()); 
+            var text = $("#deck-div").html()
+                .replace(/\<div[^\>\<]*\>/g, '\n')
+                .replace(/\<br[^\>\<]*\>/g, '\n')
+                .replace(/\<a[^\>\<]*\>/g, '\n')
+                .replace(/\<[^\>\<]+\>/g, '')
+                .replace(/&nbsp;/g, ' ');
+            var lines = text.split("\n");
+            var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/\(\)]*)$/;
+            var count = 0;
+            for (i in lines) {
+                var match = regex.exec(lines[i]);
+                if (match) {
+                    $(form).append($('<input>').attr({
+                        name: "card[name]",
+                        value: match[2],
+                        type: 'hidden'
+                    }));
+                    parseCards(parseInt(match[1]), form, renderImages, callback);
+                    requests += 1;
+                    $(form).children().last().remove();
+                } 
+            }
+        }
+        if (requests == 0) {
+            callback();
+            locked = false;
+        }
     }
     return that;
 }
 
 function hoverHandler(elements) {
     var that = {};
+
     var displayCard = function(link, e) {
         $('#preview').attr("src", link).fadeIn(0).offset({
             top: $(window).scrollTop() + 100 
         });
     }
-    
+
+    var addCard = function(card) {
+        var regex = /([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/]*)/g;
+        var content = $('#deck-div').html();
+        var matches = content.match(regex); 
+        if (matches) {
+            for (var i = 0; i < matches.length; i++) {
+                var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/]*)$/;
+                var match = regex.exec(matches[i]);
+                if (match && match[2].toLowerCase() == card.toLowerCase())  {
+                    var newInt = parseInt(match[1]) + 1;
+                    content = content.replace(match[1] + " " + match[2], newInt + " " + match[2]);
+                    $('#deck-div').html(content);
+                    return;
+                }
+            }
+        }
+        content += "<br>1 " + card;
+        $('#deck-div').html(content);
+    }
+
     that.bindHover = function() {
         elements.mouseenter(function(e) {
             displayCard($(this).prop("id"), e);
         }).mouseleave(function() {
             $('#preview').fadeOut(0);
         });
+        return that;
     }
 
     that.bindAddOnClick = function() {
         elements.click(function() {
             addCard($(this).html());
         });
+        return that;
     }
     return that;
 }
 
 $(document).ready(function() {
-    var page = paginator(20);
     var deal = dealer();
-    //Search and paginator handler
+    //Real-time search
     $("#search-form").keyup(function(){
-        page.handleSearchRequest(this);
+        $(this).submit();
     });
 
-    //Let ajax handle search
-    $('#search-form').submit(function() {
+    //Search and paginator handler
+    $("#search-form").submit(function() {
+        paginator(20).handleSearchRequest(this);
         return false;
     });
 
     //Sync hidden div with deck div for form submission
-    $(".edit_deck").submit(function() {
-        $("#deck-input").val($("#deck-div").html()); 
+    //Also parse cards in deck list before saving
+    $("#save-deck").click(function() {
+        deal.generateDeck($("#generate-form")[0], false, function() {
+            $("#deck-input").val($("#deck-div").html()); 
+            if ($(".edit_deck").length == 0){
+                $(".new_deck").submit();
+            }else {
+                $(".edit_deck").submit();
+            }
+        });
+
     });
 
     //Generate deck visual
     $("#generate-form").submit(function() {
-        deal.generateDeck(this);
+        deal.generateDeck(this, true, (function(){}));
         return false;
     });
 });
-
-//refactor
-var addCard = function(card) {
-    var regex = /([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/]*)/g;
-    var content = $('#deck-div').html();
-    var matches = content.match(regex); 
-    if (matches) {
-        for (var i = 0; i < matches.length; i++) {
-            var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/]*)$/;
-            var match = regex.exec(matches[i]);
-            if (match && match[2].toLowerCase() == card.toLowerCase())  {
-                var newInt = parseInt(match[1]) + 1;
-                content = content.replace(match[1] + " " + match[2], newInt + " " + match[2]);
-                $('#deck-div').html(content);
-                return;
-            }
-        }
-    }
-    content += "1 " + card + "<br>";
-    $('#deck-div').html(content);
-}
-

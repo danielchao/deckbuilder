@@ -1,7 +1,6 @@
 $(document).ready(function() {
     $("#deck-div").html($("#deck-input").val());
-    var hover = hoverHandler($(".match"));
-    hover.bindHover();
+    hoverHandler($(".match")).bindHover();
 
     //Taken from ericl's Kansas.git
     $("#deck-div")[0].addEventListener("paste", function(e) {
@@ -11,6 +10,7 @@ $(document).ready(function() {
         // get text representation of clipboard
         var text = e.clipboardData.getData("text/plain");
         text = text.replace(/\n/g, '\<br\>');
+        text = text.replace(/\r\n/g, '\<br\>');
         text = text.replace(/^\<br\>/g, '');
 
         // insert text manually
