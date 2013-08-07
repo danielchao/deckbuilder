@@ -1,2 +1,9 @@
+$('#deck-description').html("");
+$('#deck-description').append('<h3> Description: <%= @deck.description %> </h3>');
 $('#deck-list').html("");
-$('#deck-list').html('<%= j render("deck_list") %>');
+$('#deck-list').append('<%= j render("deck_list") %>');
+$(".match").mouseenter(function(e) {
+    displayCard($(this).prop("id"), e);
+}).mouseleave(function() {
+    $('#preview').fadeOut(0);
+});

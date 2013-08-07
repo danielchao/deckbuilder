@@ -11,14 +11,17 @@ class CardsController < ApplicationController
 
         name = params[:card][:name]
         name.gsub!(' ', '+')
-        if Rails.cache.read(name)
-            imgs = Rails.cache.read(name)
+        uq = params[:card][:unique]? 't' : 'f'
+
+        if Rails.cache.read(name+uq)
+            imgs = Rails.cache.read(name+uq)
         else
             if params[:card][:unique]
                 curl = get_images(name, true)
             else
                 curl = get_images(name, false)
             end
+
 
             imgs = curl.scan(regex)
             if imgs.count == 0 
@@ -39,7 +42,7 @@ class CardsController < ApplicationController
                 end
             end
             imgs.compact!
-            Rails.cache.write(name, imgs)
+            Rails.cache.write(name+uq, imgs)
         end
         respond_to do |format|
             format.json {render json: imgs.to_json }
@@ -49,13 +52,14 @@ class CardsController < ApplicationController
     private 
         def get_images(query, unique)
             require 'open-uri'
+            require 'cgi'
             content = ""
             if unique
-                open("http://magiccards.info/query?q=!#{query}") do |f|
+                open(URI.encode("http://magiccards.info/query?q=!#{query}")) do |f|
                     f.each_line {|line| content << line}
                 end
             else
-                open("http://magiccards.info/query?q=#{query}&v=olist") do |f|
+                open(URI.encode("http://magiccards.info/query?q=#{query}&v=olist")) do |f|
                     f.each_line {|line| content << line}
                 end
             end

@@ -1,5 +1,11 @@
 $(document).ready(function() {
     $("#deck-div").html($("#deck-input").val());
+    $(".match").mouseenter(function(e) {
+        console.log("enter");
+        displayCard($(this).prop("id"), e);
+    }).mouseleave(function() {
+        $('#preview').fadeOut(0);
+    });
 
     //Taken from ericl's Kansas.git
     $("#deck-div")[0].addEventListener("paste", function(e) {

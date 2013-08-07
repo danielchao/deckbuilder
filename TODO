@@ -1,17 +1,21 @@
 Priority
-=====================
-    Deck editor panel - (select deck from list to edit)
-    vault (deck home) viewer (hover to show card + display whole deck) 
+=============
 
+    refactor javascript
+    add cards should already have link
     deck sharing (instead of users page) feature: share deck
-        home page feed (recent activity)
-        rate other people's decks
-            comment on other people's decks
-        search: similar decks
-        trending cards? 
+    visualize whole deck on user home
 
-Maker 
-=====================
+
+Features
+=============
+    home page feed (recent activity)
+    rate other people's decks
+        comment on other people's decks
+    search: similar decks
+    trending cards? 
+Extra Features
+==============
     filter and sort search list
     search options
     grab prices (another tab)
