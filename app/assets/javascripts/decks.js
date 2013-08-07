@@ -76,25 +76,15 @@ function dealer() {
 
                 //Format cards in content box
                 content = $("#deck-div").html();
-
                 content = content.replace(/&nbsp;/g, ' ');
 
                 var tag = "<a class='match' id = '" + data[0][0] + "'>" + count + " " + data[0][1] + "</a>";
                 var escapedName = data[0][1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                var re = new RegExp("(<[^<>]*>)?" + count + " " + escapedName + "(<[^<>]*>)?", "i");
+                var re = new RegExp("(<a[^<>]*>)?" + count + " " + escapedName + "(<\/a>)?", "i");
 
                 content = content.replace(re, tag);
-
-                if (!re.exec(content)){
-                    console.log(escapedName);
-                    console.log(re);
-                    console.log(content);
-                    console.log(data[0][1]);
-                }
-
                 $("#deck-div").html(content);
                 hoverHandler($(".match")).bindHover();
-
                 if (renderImages) {
                     renderImageStack(count, data[0][0], $('#deck-preview'));
                 }
@@ -170,20 +160,28 @@ function hoverHandler(elements) {
         var regex = /([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/]*)/g;
         var content = $('#deck-div').html();
         var matches = content.match(regex); 
+        //add to existing listing
         if (matches) {
             for (var i = 0; i < matches.length; i++) {
                 var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/]*)$/;
                 var match = regex.exec(matches[i]);
-                if (match && match[2].toLowerCase() == card.toLowerCase())  {
+                if (match && match[2].toLowerCase() == card.html().toLowerCase())  {
                     var newInt = parseInt(match[1]) + 1;
                     content = content.replace(match[1] + " " + match[2], newInt + " " + match[2]);
                     $('#deck-div').html(content);
+                    hoverHandler($(".match")).bindHover().bindAddOnClick();
                     return;
                 }
             }
         }
-        content += "<br>1 " + card;
+        // no matches - add new card
+        content += "<br> <a id='" 
+            + card.attr("id") 
+            + "' class = 'match'>1 "
+            + card.html();
+            + "</a>";
         $('#deck-div').html(content);
+        hoverHandler($(".match")).bindHover().bindAddOnClick();
     }
 
     that.bindHover = function() {
@@ -197,7 +195,7 @@ function hoverHandler(elements) {
 
     that.bindAddOnClick = function() {
         elements.click(function() {
-            addCard($(this).html());
+            addCard($(this));
         });
         return that;
     }
