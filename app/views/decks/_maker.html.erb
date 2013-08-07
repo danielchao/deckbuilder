@@ -2,6 +2,7 @@
   <section>
     <p class="title" data-section-title><a href="#panel1">View</a></p>
     <div class="content" data-section-content>
+        <p>Found <span id="count">0</span> cards</p>
         <%= form_for :card, url: query_card_path, html: { id: "generate-form" } do |f| %>
             <%= f.hidden_field :unique, value: true%>
             <%= f.submit "Generate", class: "button" %>

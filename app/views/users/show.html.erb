@@ -11,8 +11,7 @@
                 <td>
                     <% if current_user?(@user) %>
                         <%= link_to "Delete", 
-                            deck_path(d), method: :delete,
-                            data: { confirm: "Are you sure?"}, class: "button small" %>
+                            deck_path(d), method: :delete, confirm: "Are you sure?", class: "button small" %>
                         <%= link_to "Edit", edit_deck_path(d), class: "button small" %>
                     <% end %>
                     <%= link_to "Show", deck_path(d), class: "button small show-deck", remote: true %>
@@ -41,6 +40,8 @@
       <section>
         <p class="title" data-section-title><a href="#panel2">View</a></p>
         <div class="content" data-section-content>
+            <div id="deck-preview"> </div>
+            <div class="clear"> </div>
         </div>
       </section>
     </div>

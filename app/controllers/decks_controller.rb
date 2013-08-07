@@ -8,7 +8,7 @@ class DecksController < ApplicationController
     def create
         @deck = current_user.decks.build(deck_params)
         if @deck.save
-            redirect_to user_path(current_user.id), notice: "Success!"
+            redirect_to edit_deck_path(@deck), notice: "Success!"
         else
             flash[:error] = ""
             @deck.errors.full_messages.each do |e| 

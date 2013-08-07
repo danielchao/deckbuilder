@@ -7,6 +7,5 @@
     <%= f.label :content %>
     <%= f.text_field :content, id: "deck-input"%>
     <div id='deck-div' contenteditable> </div>
-    <%= f.submit "Save", class: "button" %>
-    <p>Found <span id="count">0</span> cards</p>
 <% end %>
+<button type="button" id="save-deck">Save</button>

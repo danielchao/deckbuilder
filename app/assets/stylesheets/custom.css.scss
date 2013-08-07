@@ -66,3 +66,10 @@ $errorRed: #CC0000;
 #deck-list {
     padding-bottom: 20px;
 }
+
+.match {
+    &:hover {
+        text-decoration: underline;
+    }
+
+}
