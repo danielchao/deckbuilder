@@ -69,6 +69,40 @@ function dealer() {
                 + '</div>');
     }
 
+    var reorganizeList = function() {
+        //Division of cards into creatures, nc spells, etc...
+        var $list = $("<div>");
+        var count = 0;
+
+        $list.append("<p class='creatures'></p>");
+        $("#deck-div").find(".creature").each(function() {
+            $list.append(this);
+            $list.append("<br>");
+            count += parseInt(/^[0-9]+/.exec($(this).html())[0]);
+        });
+        $list.find(".creatures").html("==== Creatures (" + count + ") ====");
+        count = 0;
+        $list.append("<p class='ncspells'> ===== NC Spells ===== </p>");
+        $("#deck-div").find(".ncspell").each(function() {
+            $list.append(this);
+            $list.append("<br>");
+            count += parseInt(/^[0-9]+/.exec($(this).html())[0]);
+        });
+        $list.find(".ncspells").html("==== NC Spells (" + count + ") ====");
+        count = 0;
+        $list.append("<p class='lands'> ===== Lands ===== </p>");
+        $("#deck-div").find(".land").each(function() {
+            $list.append(this);
+            $list.append("<br>");
+            count += parseInt(/^[0-9]+/.exec($(this).html())[0]);
+        });
+        $list.find(".lands").html("==== Lands (" + count + ") ====");
+
+        $("#deck-div").html("");
+        $("#deck-div").append($list);
+        
+    }
+
     var parseCards = function(count, form, renderImages, callback) {
         $.post(form.action, $(form).serialize(), function(data) {
             if (data.length == 1) {
@@ -78,7 +112,18 @@ function dealer() {
                 content = $("#deck-div").html();
                 content = content.replace(/&nbsp;/g, ' ');
 
-                var tag = "<a class='match' id = '" + data[0][0] + "'>" + count + " " + data[0][1] + "</a>";
+                //console.log(JSON.stringify(data[0][2]).find("Creature"));
+                var type = "";
+
+                if (data[0][2].search("Creature") != -1){
+                    type = "creature";
+                }else if (data[0][2].search("Land") != -1) {
+                    type = "land";
+                }else {
+                    type = "ncspell";
+                }
+
+                var tag = "<a class='match " + type + "' id = '" + data[0][0] + "'>" + count + " " + data[0][1] + "</a>";
                 var escapedName = data[0][1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                 var re = new RegExp("(<a[^<>]*>)?" + count + " " + escapedName + "(<\/a>)?", "i");
 
@@ -93,6 +138,7 @@ function dealer() {
             requests -= 1;
             if (requests == 0) {
                 callback();
+                reorganizeList();
                 locked = false;
             }
         });

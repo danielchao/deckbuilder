@@ -14,7 +14,7 @@ class DecksController < ApplicationController
             @deck.errors.full_messages.each do |e| 
                 flash[:error] << e 
             end
-            redirect_to user_path(current_user.id)
+            redirect_to new_deck_path
         end
     end
     

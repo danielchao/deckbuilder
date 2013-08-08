@@ -1,11 +1,11 @@
 Priority
 =============
-
+    store deck count
     deck sharing (instead of users page) feature: share deck
-    visualize whole deck on user home
 
 Features
 =============
+    private decks
     home page feed (recent activity)
     rate other people's decks
         comment on other people's decks
@@ -13,6 +13,7 @@ Features
     trending cards? 
 Extra Features
 ==============
+    
     filter and sort search list
     search options
     grab prices (another tab)
