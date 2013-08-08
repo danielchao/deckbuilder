@@ -1,6 +1,6 @@
 Priority
 =============
-    store deck count
+    don't delete things you can't parse
     deck sharing (instead of users page) feature: share deck
 
 Features
@@ -11,9 +11,9 @@ Features
         comment on other people's decks
     search: similar decks
     trending cards? 
+
 Extra Features
 ==============
-    
     filter and sort search list
     search options
     grab prices (another tab)

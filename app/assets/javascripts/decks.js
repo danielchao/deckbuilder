@@ -82,7 +82,7 @@ function dealer() {
         });
         $list.find(".creatures").html("==== Creatures (" + count + ") ====");
         count = 0;
-        $list.append("<p class='ncspells'> ===== NC Spells ===== </p>");
+        $list.append("<p class='ncspells'></p>");
         $("#deck-div").find(".ncspell").each(function() {
             $list.append(this);
             $list.append("<br>");
@@ -90,7 +90,7 @@ function dealer() {
         });
         $list.find(".ncspells").html("==== NC Spells (" + count + ") ====");
         count = 0;
-        $list.append("<p class='lands'> ===== Lands ===== </p>");
+        $list.append("<p class='lands'></p>");
         $("#deck-div").find(".land").each(function() {
             $list.append(this);
             $list.append("<br>");
@@ -98,6 +98,14 @@ function dealer() {
         });
         $list.find(".lands").html("==== Lands (" + count + ") ====");
 
+        $list.append("<p>----------</p>");
+        var remains = replaceHtml($("#deck-div").html()).split('\n');
+        for (var i = 0; i < remains.length; i++) {
+            if (remains[i] != "" && remains[i].indexOf("====")) {
+                $list.append("<p>" + remains[i] + "</p>");
+            }
+        }
+        
         $("#deck-div").html("");
         $("#deck-div").append($list);
         
@@ -144,6 +152,15 @@ function dealer() {
         });
     }
 
+    var replaceHtml = function(text) {
+        return text
+            .replace(/\<div[^\>\<]*\>/g, '\n')
+            .replace(/\<br[^\>\<]*\>/g, '\n')
+            .replace(/\<a[^\>\<]*\>/g, '\n')
+            .replace(/\<[^\>\<]+\>/g, '')
+            .replace(/&nbsp;/g, ' ');
+    }
+
     //Show images (for Vault Page)
     that.generateImages = function() {
         var stacks = $("#deck-list").find('a');
@@ -162,12 +179,7 @@ function dealer() {
             $("#count").html("0");
             $("#deck-preview").html("");
             $("#deck-input").val($("#deck-div").html()); 
-            var text = $("#deck-div").html()
-                .replace(/\<div[^\>\<]*\>/g, '\n')
-                .replace(/\<br[^\>\<]*\>/g, '\n')
-                .replace(/\<a[^\>\<]*\>/g, '\n')
-                .replace(/\<[^\>\<]+\>/g, '')
-                .replace(/&nbsp;/g, ' ');
+            var text = replaceHtml($("#deck-div").html());
             var lines = text.split("\n");
             var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/\(\)]*)$/;
             var count = 0;
@@ -225,7 +237,7 @@ function hoverHandler(elements) {
             + card.attr("id") 
             + "' class = 'match'>1 "
             + card.html();
-            + "</a>";
+        + "</a>";
         $('#deck-div').html(content);
         hoverHandler($(".match")).bindHover().bindAddOnClick();
     }
@@ -266,6 +278,7 @@ $(document).ready(function() {
     $("#save-deck").click(function() {
         deal.generateDeck($("#generate-form")[0], false, function() {
             $("#deck-input").val($("#deck-div").html()); 
+            $("#deck_num_cards").val($("#count").html());
             if ($(".edit_deck").length == 0){
                 $(".new_deck").submit();
             }else {

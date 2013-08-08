@@ -1,49 +1,51 @@
 <h1><%= @user.name %>'s Vault</h1>
 <div class="large-3 columns">
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Actions</th>
-        </tr>
+    <div class="section-container accordion" data-section="accordion">
+        <section> 
+            <p class="title">Decks</p>
+        </section>
         <% @decks.each do |d| %>
-            <tr>
-                <td><%= d.name %></td>
-                <td>
-                    <% if current_user?(@user) %>
-                        <%= link_to "Delete", 
-                            deck_path(d), method: :delete, confirm: "Are you sure?", class: "button small" %>
-                        <%= link_to "Edit", edit_deck_path(d), class: "button small" %>
-                    <% end %>
-                    <%= link_to "Show", deck_path(d), class: "button small show-deck", remote: true %>
-                </td>
-            </tr>
+            <section> 
+                <p class="title"><%= link_to d.name, deck_path(d), remote: true %></p>
+                <% if current_user?(@user) %>
+                    <div class="content" data-section-content>
+                        <ul class="button-group radius">
+                            <li><%= link_to "Edit", edit_deck_path(d), class: "button" %></li>
+                            <li><%= link_to "Delete", 
+                                deck_path(d), method: :delete, confirm: "Are you sure?", 
+                                class: "button alert" %></li>
+                        </ul>
+                    </div>
+                <% else %>
+                    <div data-section-content></div>
+                <% end %>
+            </section>
         <% end %>
-    </table>
+    </div>
     <% if current_user?(@user) %>
         <%= link_to "Deck Editor", new_deck_path, class: "button" %>
     <% end %>
 </div>
 <div class="large-9 columns">
-
     <div class="section-container auto" data-section>
-      <section>
+        <section>
         <p class="title" data-section-title><a href="#panel1">List</a></p>
         <div class="content" data-section-content>
             <div id="deck-description">
-                
+
             </div>
             <div id="deck-list" class="panel">
-                
+
             </div>
         </div>
-      </section>
-      <section>
+        </section>
+        <section>
         <p class="title" data-section-title><a href="#panel2">View</a></p>
         <div class="content" data-section-content>
             <div id="deck-preview"> </div>
             <div class="clear"> </div>
         </div>
-      </section>
+        </section>
     </div>
     <div class="large-9 columns large-offset-5">
         <img id="preview"/>

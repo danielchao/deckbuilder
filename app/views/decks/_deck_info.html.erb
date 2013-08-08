@@ -6,6 +6,7 @@
     <%= f.text_field :description %>
     <%= f.label :content %>
     <%= f.text_field :content, id: "deck-input"%>
+    <%= f.hidden_field :num_cards %>
     <div id='deck-div' contenteditable> </div>
 <% end %>
 <button type="button" id="save-deck">Save</button>
