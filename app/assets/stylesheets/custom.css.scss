@@ -1,6 +1,3 @@
-@import "foundation";
-
-$errorRed: #CC0000;
 
 .field_with_errors {
     @extend .error;
@@ -14,9 +11,6 @@ $errorRed: #CC0000;
     }
 }
 
-.alert-error {
-    @include alert($errorRed);
-}
 
 #deck-input {
     max-width: 100%;
@@ -25,7 +19,6 @@ $errorRed: #CC0000;
 }
 
 #preview {
-    /*float: right;*/
     position: absolute;
 }
 

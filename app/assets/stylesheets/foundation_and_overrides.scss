@@ -172,7 +172,7 @@ $default-float: left;
 // Control header font sizes
 
 // $h1-font-size: emCalc(44);
-// $h2-font-size: emCalc(37);
+// $h2-font-size: emCalc(100);
 // $h3-font-size: emCalc(27);
 // $h4-font-size: emCalc(23);
 // $h5-font-size: emCalc(18);
@@ -1301,3 +1301,7 @@ $default-float: left;
 // $topbar-sticky-class: ".sticky";
 
 @import 'foundation';
+
+.alert-error {
+    @include alert(#CC0000);
+}
