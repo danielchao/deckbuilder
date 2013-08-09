@@ -14,7 +14,8 @@ function paginator(per_page) {
             i < per_page + new_page_index * per_page && i < cards.length;
             i++) 
         {
-            $('#list-cards').append('<tr><td><a class="card" id= "'
+            $('#list-cards').append('<tr>'
+                + '<td><a class="card" id= "'
                 + cards[i][0] + '">'
                 + cards[i][1] + '</a></td>'
                 + '<td>' + cards[i][2] + '</td>'
@@ -22,7 +23,6 @@ function paginator(per_page) {
                 + '<td><a href = "' + cards[i][4] + '"> More'
                 + '</a></td></tr>'); 
         }
-
         hoverHandler($(".card")).bindHover().bindAddOnClick();
         return false;
     }
@@ -31,7 +31,7 @@ function paginator(per_page) {
             $.post(form.action, $(form).serialize(), function(data) {
                 cards = data;
                 $("#list-cards").pagination(data.length, {
-                    items_per_page:per_page,
+                    items_per_page: per_page,
                     callback:that.handlePaginationClick
                 });
             },"json")
@@ -80,7 +80,7 @@ function dealer() {
             $list.append("<br>");
             count += parseInt(/^[0-9]+/.exec($(this).html())[0]);
         });
-        $list.find(".creatures").html("==== Creatures (" + count + ") ====");
+        $list.find(".creatures").html("== Creatures (" + count + ") ==");
         count = 0;
         $list.append("<p class='ncspells'></p>");
         $("#deck-div").find(".ncspell").each(function() {
@@ -88,7 +88,7 @@ function dealer() {
             $list.append("<br>");
             count += parseInt(/^[0-9]+/.exec($(this).html())[0]);
         });
-        $list.find(".ncspells").html("==== NC Spells (" + count + ") ====");
+        $list.find(".ncspells").html("== NC Spells (" + count + ") ==");
         count = 0;
         $list.append("<p class='lands'></p>");
         $("#deck-div").find(".land").each(function() {
@@ -96,11 +96,11 @@ function dealer() {
             $list.append("<br>");
             count += parseInt(/^[0-9]+/.exec($(this).html())[0]);
         });
-        $list.find(".lands").html("==== Lands (" + count + ") ====");
+        $list.find(".lands").html("== Lands (" + count + ") ==");
 
         var remains = replaceHtml($("#deck-div").html()).split('\n');
         for (var i = 0; i < remains.length; i++) {
-            if (remains[i] != "" && remains[i].indexOf("====")) {
+            if (remains[i] != "" && remains[i].indexOf("==")) {
                 $list.append("<p>" + remains[i] + "</p>");
             }
         }
@@ -179,8 +179,6 @@ function dealer() {
             $("#deck-input").val($("#deck-div").html()); 
             var text = replaceHtml($("#deck-div").html());
 
-            console.log(text);
-
             var lines = text.split("\n");
             var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/\(\)]*)$/;
             var count = 0;
@@ -228,7 +226,7 @@ function hoverHandler(elements) {
                     var newInt = parseInt(match[1]) + 1;
                     content = content.replace(match[1] + " " + match[2], newInt + " " + match[2]);
                     $('#deck-div').html(content);
-                    hoverHandler($(".match")).bindHover().bindAddOnClick();
+                    hoverHandler($(".match")).bindHover();
                     return;
                 }
             }
@@ -240,7 +238,7 @@ function hoverHandler(elements) {
             + card.html();
         + "</a>";
         $('#deck-div').html(content);
-        hoverHandler($(".match")).bindHover().bindAddOnClick();
+        hoverHandler($(".match")).bindHover();
     }
 
     that.bindHover = function() {

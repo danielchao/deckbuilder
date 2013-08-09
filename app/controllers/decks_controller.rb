@@ -13,11 +13,7 @@ class DecksController < ApplicationController
             end
             redirect_to edit_deck_path(@deck), notice: "Success!"
         else
-            flash[:error] = ""
-            @deck.errors.full_messages.each do |e| 
-                flash[:error] << e 
-            end
-            redirect_to new_deck_path
+            render 'new'
         end
     end
     

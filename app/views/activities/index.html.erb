@@ -1,4 +1,8 @@
-<h1>The Social Stack</h1>
+<h2>Welcome, <%= current_user.name %></h2>
+<p>What would you like to do?</p>
+<%= link_to "View Decks", user_path(current_user), class: "button" %>
+<%= link_to "Make a Deck", new_deck_path, class: "button" %>
+<h2>The Social Stack</h2>
 
 <% @activities.each do |activity| %>
     <p><%= time_ago_in_words(activity.created_at) %> ago </p>

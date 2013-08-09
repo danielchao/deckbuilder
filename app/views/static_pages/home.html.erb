@@ -1,35 +1,28 @@
-<% if !signed_in? %>
-    <div class="panel">
-        <h1>Cattlebruiser</h1>
+<div class="panel">
+    <h1>Welcome to Cattlebruiser</h1>
+</div>
+<div class="row">
+    <div class="large-6 columns">
+        <h2>Build</h2>
+        <p>Incredibly badass and seamless interface for deck building</p>
+        <h2>Store</h2>
+        <p>A home for all your decks</p>
+        <h2>Share</h2>
+        <p>Share with your friends, if you have any! </p>
     </div>
-    <div class="row">
-        <div class="large-6 columns">
-            <h2>Build</h2>
-            <p>Incredibly badass and seamless interface for deck building</p>
-            <h2>Store</h2>
-            <p>A home for all your decks</p>
-            <h2>Share</h2>
-            <p>Share with your friends, if you have any! </p>
-        </div>
-        <div class="large-6 columns">
-            <h1>Sign up</h1>
-            <%= form_for(@user) do |f| %>
-                <%= render 'shared/error_messages', object: f.object %>
-                <%= f.label :name %>
-                <%= f.text_field :name %>
-                <%= f.label :email %>
-                <%= f.text_field :email %>
-                <%= f.label :password %>
-                <%= f.password_field :password %>
-                <%= f.label :password_confirmation %>
-                <%= f.password_field :password_confirmation %>
-                <%= f.submit "Create my account", class: "button large" %>
-            <% end %>
-        </div>
+    <div class="large-6 columns">
+        <h1>Sign up</h1>
+        <%= form_for(@user) do |f| %>
+            <%= render 'shared/error_messages', object: f.object %>
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+            <%= f.label :email %>
+            <%= f.text_field :email %>
+            <%= f.label :password %>
+            <%= f.password_field :password %>
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation %>
+            <%= f.submit "Create my account", class: "button large" %>
+        <% end %>
     </div>
-<% else %>
-    <h2>Welcome, <%= current_user.name %></h2>
-    <p>What would you like to do?</p>
-    <%= link_to "My Decks", user_path(current_user), class: "button" %>
-    <%= link_to "Social", activities_path, class: "button" %>
-<% end %>
+</div>

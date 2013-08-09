@@ -2,11 +2,11 @@
   <section>
     <p class="title" data-section-title><a href="#panel1">View</a></p>
     <div class="content" data-section-content>
-        <p>Found <span id="count">0</span> cards</p>
         <%= form_for :card, url: query_card_path, html: { id: "generate-form" } do |f| %>
             <%= f.hidden_field :unique, value: true%>
-            <%= f.submit "Generate", class: "button" %>
+            <%= f.submit :Build, class: "button large" %>
         <% end %>
+        <p>Found <span id="count">0</span> cards</p>
         <div id = "deck-preview"></div>
         <div class="clear"> </div>
     </div>
@@ -14,10 +14,15 @@
   <section>
     <p class="title" data-section-title><a href="#panel2">Search</a></p>
     <div class="content" data-section-content>
-        <h2>Card Search</h2>
         <%= form_for :card, url: query_card_path, html: { id: "search-form" } do |f| %>
-            <%= f.text_field :name %>
+            <div class="small-1 columns">
+                <label for="card[name]"><img src="/assets/icons/search.png" alt="search" /></label>
+            </div>
+            <div class="small-11 columns">
+                <%= f.text_field :name %>
+            </div>
         <% end %>
+        <div id="pagination-container"></div>
         <table id="list-cards"> </table>
     </div>
   </section>

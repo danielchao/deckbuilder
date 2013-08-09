@@ -176,7 +176,8 @@
 			containers.data('current_page', new_current_page);
 			links = renderer.getLinks(new_current_page, paginationClickHandler);
 			containers.empty();
-			links.appendTo(containers);
+            containers.prev().empty();
+			links.appendTo(containers.prev());
 			// call the callback and propagate the event if it does not return false
 			var continuePropagation = opts.callback(new_current_page, containers);
 			return continuePropagation;
@@ -227,9 +228,10 @@
 		
 		// When all initialisation is done, draw the links
 		links = renderer.getLinks(current_page, paginationClickHandler);
+		containers.prev().empty();
 		containers.empty();
 		if(np > 1 || opts.show_if_single_page) {
-			links.appendTo(containers);
+			links.appendTo(containers.prev());
 		}
 		// call callback function
 		if(opts.load_first_page) {
