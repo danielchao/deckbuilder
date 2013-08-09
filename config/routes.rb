@@ -4,6 +4,7 @@ Deckbuilder::Application.routes.draw do
     match '/about', to: 'static_pages#about', via: 'get'
     resources :users
     resources :decks
+    resources :activities
     resources :sessions, only: [:create, :destroy]
     post 'card' => 'cards#query', as: :query_card
     # The priority is based upon order of creation: first created -> highest priority.

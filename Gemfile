@@ -19,7 +19,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'zurb-foundation'
-gem 'will_paginate'
+gem 'public_activity', github: 'pokonski/public_activity'
+gem 'hirb'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

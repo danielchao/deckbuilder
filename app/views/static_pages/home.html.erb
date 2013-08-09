@@ -31,5 +31,5 @@
     <h2>Welcome, <%= current_user.name %></h2>
     <p>What would you like to do?</p>
     <%= link_to "My Decks", user_path(current_user), class: "button" %>
-    <%= link_to "Social", users_path, class: "button" %>
+    <%= link_to "Social", activities_path, class: "button" %>
 <% end %>

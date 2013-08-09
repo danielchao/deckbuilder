@@ -98,7 +98,6 @@ function dealer() {
         });
         $list.find(".lands").html("==== Lands (" + count + ") ====");
 
-        $list.append("<p>----------</p>");
         var remains = replaceHtml($("#deck-div").html()).split('\n');
         for (var i = 0; i < remains.length; i++) {
             if (remains[i] != "" && remains[i].indexOf("====")) {
@@ -120,7 +119,6 @@ function dealer() {
                 content = $("#deck-div").html();
                 content = content.replace(/&nbsp;/g, ' ');
 
-                //console.log(JSON.stringify(data[0][2]).find("Creature"));
                 var type = "";
 
                 if (data[0][2].search("Creature") != -1){
@@ -145,8 +143,8 @@ function dealer() {
             //callback upon last request finishing
             requests -= 1;
             if (requests == 0) {
-                callback();
                 reorganizeList();
+                callback();
                 locked = false;
             }
         });
@@ -157,7 +155,7 @@ function dealer() {
             .replace(/\<div[^\>\<]*\>/g, '\n')
             .replace(/\<br[^\>\<]*\>/g, '\n')
             .replace(/\<a[^\>\<]*\>/g, '\n')
-            .replace(/\<[^\>\<]+\>/g, '')
+            .replace(/\<[^\>\<]+\>/g, '\n')
             .replace(/&nbsp;/g, ' ');
     }
 
@@ -180,6 +178,9 @@ function dealer() {
             $("#deck-preview").html("");
             $("#deck-input").val($("#deck-div").html()); 
             var text = replaceHtml($("#deck-div").html());
+
+            console.log(text);
+
             var lines = text.split("\n");
             var regex = /^([0-9]+)\s+([^\s][0-9a-zA-Z,\-\' \/\(\)]*)$/;
             var count = 0;

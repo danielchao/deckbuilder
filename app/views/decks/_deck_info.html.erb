@@ -4,8 +4,16 @@
     <%= f.text_field :name %>
     <%= f.label :description %>
     <%= f.text_field :description %>
-    <%= f.label :content %>
+    <div class="switch">
+        <input id="off" name="deck[private]" type="radio" value = "0"<%= "checked" unless @deck.private %>>
+        <label for="off" onclick="">Public</label>
+
+        <input id="on" name="deck[private]" type="radio" value = "1"<%= "checked" if @deck.private %>>
+        <label for="on" onclick="">Private</label>
+        <span></span>
+    </div>
     <%= f.text_field :content, id: "deck-input"%>
+    <%= f.label :content %>
     <%= f.hidden_field :num_cards %>
     <div id='deck-div' contenteditable> </div>
 <% end %>

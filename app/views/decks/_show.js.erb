@@ -1,0 +1,7 @@
+//Actions upon click deck on vault
+$('#deck-description').html("");
+$('#deck-description').append('<p><%= @deck.description %> || <%= @deck.num_cards %> cards </p>');
+$('#deck-list').html("");
+$('#deck-list').append('<%= j render("deck_list") %>');
+hoverHandler($(".match")).bindHover($(".match"));
+dealer().generateImages();

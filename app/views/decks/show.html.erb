@@ -1,0 +1,11 @@
+<% if current_user?(@deck.user) or !@deck.private  %>
+    <% content_for :head do  %>
+        <script type="text/javascript" charset="utf-8">
+            <%= render 'show.js'  %>
+        </script>
+    <% end %>
+    <%= render 'partials/view_deck' %>
+<% else %>
+    <p>Private deck - Sorry!</p>
+<% end %>
+

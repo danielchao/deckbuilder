@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         if @user.save
+            @user.create_activity :create, owner: @user
             sign_in @user
             redirect_to root_url, notice: "Success!"
         else
@@ -38,6 +39,7 @@ class UsersController < ApplicationController
     end
 
     def index
+        @decks = Deck.all.where(private: false).order("created_at DESC")
         @users = User.all
     end
 

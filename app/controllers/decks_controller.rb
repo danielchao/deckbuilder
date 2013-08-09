@@ -8,6 +8,9 @@ class DecksController < ApplicationController
     def create
         @deck = current_user.decks.build(deck_params)
         if @deck.save
+            if !@deck.private
+                @deck.create_activity :create, owner: current_user
+            end
             redirect_to edit_deck_path(@deck), notice: "Success!"
         else
             flash[:error] = ""
@@ -36,6 +39,9 @@ class DecksController < ApplicationController
         @deck = Deck.find(params[:id])
         correct_user(@deck)
         if @deck.update_attributes(deck_params)
+            if !@deck.private
+                @deck.create_activity :update, owner: current_user
+            end
             flash[:success] = "Deck updated"
             redirect_to edit_deck_path(@deck) 
         else
@@ -45,6 +51,9 @@ class DecksController < ApplicationController
 
     def destroy
         @deck = Deck.find(params[:id])
+        if !@deck.private
+            @deck.create_activity :destroy, owner: current_user
+        end
         correct_user(@deck) 
         @deck.destroy
         redirect_to user_path(current_user.id)
@@ -53,13 +62,14 @@ class DecksController < ApplicationController
     def show
         @deck = Deck.find(params[:id])
         respond_to do |format|
-            format.js
+            format.js { render action: "_show.js"}
+            format.html
         end
     end
 
     private
         def deck_params
-            params.require(:deck).permit(:name, :description, :content, :num_cards)
+            params.require(:deck).permit(:name, :description, :content, :num_cards, :private)
         end
 
         def correct_user(deck)

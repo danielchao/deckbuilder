@@ -1,3 +1,4 @@
+<h2>All Users</h2>
 <table>
     <tr>
         <th>Name</th>
@@ -8,8 +9,7 @@
         <tr>
             <th><%= user.name %></th>
             <th><%= user.email %></th>
-            <th><%= link_to "View Profile", user_path(user), class: "button small" %></th>
+            <th><%= link_to "Decks", user_path(user), class: "button small" %></th>
         </tr>
     <% end %>
 </table>
-

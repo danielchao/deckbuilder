@@ -1,4 +1,6 @@
 class Deck < ActiveRecord::Base
-  belongs_to :user
-  validates :name, presence: true
+    include PublicActivity::Common
+    #tracked owner: ->(controller, model) { controller && controller.current_user}
+    belongs_to :user
+    validates :name, presence: true
 end
