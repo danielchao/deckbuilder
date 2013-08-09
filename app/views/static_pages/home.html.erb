@@ -1,28 +1,49 @@
 <div class="panel">
-    <h1>Welcome to Cattlebruiser</h1>
+    <h1>Cattlebruiser</h1>
 </div>
 <div class="row">
-    <div class="large-6 columns">
-        <h2>Build</h2>
-        <p>Incredibly badass and seamless interface for deck building</p>
-        <h2>Store</h2>
-        <p>A home for all your decks</p>
-        <h2>Share</h2>
-        <p>Share with your friends, if you have any! </p>
+    <div class="large-10 columns large-offset-1">
+        <ul data-orbit>
+            <li>
+            <img src="/assets/build.jpg" class="main-img" alt="build"/>
+            <div class="orbit-caption">
+                <h2 class="caption">Build</h2>
+                <p>Incredibly badass and seamless interface for deck building</p>
+                <a href='#' data-reveal-id="signup" class="button large radius">Get Started</a>
+            </div>
+            </li>
+            <li>
+            <img src="/assets/storage.jpg" class="main-img" alt="store"/>
+            <div class="orbit-caption">
+                <h2 class="caption">Store</h2>
+                <p>A home for all your decks</p>
+                <a href='#' data-reveal-id="signup" class="button large radius">Get Started</a>
+            </div>
+            </li>
+            <li>
+            <img src="/assets/share.jpg" class="main-img" alt="share" />
+            <div class="orbit-caption">
+                <h2 class="caption">Share</h2>
+                <p>Share with your friends, if you have any! </p>
+                <a href='#' data-reveal-id="signup" class="button large radius">Get Started</a>
+            </div>
+            </li>
+        </ul>
     </div>
-    <div class="large-6 columns">
-        <h1>Sign up</h1>
-        <%= form_for(@user) do |f| %>
-            <%= render 'shared/error_messages', object: f.object %>
-            <%= f.label :name %>
-            <%= f.text_field :name %>
-            <%= f.label :email %>
-            <%= f.text_field :email %>
-            <%= f.label :password %>
-            <%= f.password_field :password %>
-            <%= f.label :password_confirmation %>
-            <%= f.password_field :password_confirmation %>
-            <%= f.submit "Create my account", class: "button large" %>
-        <% end %>
-    </div>
+</div>
+<div id='signup' class="reveal-modal small">
+    <h1>Sign up</h1>
+    <a class="close-reveal-modal">&#215;</a>
+    <%= form_for(@user) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+        <%= f.submit "Create my account", class: "button large" %>
+    <% end %>
 </div>

@@ -2,12 +2,14 @@
 <p>What would you like to do?</p>
 <%= link_to "View Decks", user_path(current_user), class: "button" %>
 <%= link_to "Make a Deck", new_deck_path, class: "button" %>
-<h2>The Social Stack</h2>
+<h2>The Stack</h2>
+<fieldset>
+    <% @activities.each do |activity| %>
+        <p><%= time_ago_in_words(activity.created_at) %> ago </p>
+        <p class="activity">
+            <%= link_to activity.owner.name, activity.owner if activity.owner %>
+            <%= render_activity activity %>
+        </p>
+    <% end %>
+</fieldset>
 
-<% @activities.each do |activity| %>
-    <p><%= time_ago_in_words(activity.created_at) %> ago </p>
-    <p class="activity">
-        <%= link_to activity.owner.name, activity.owner if activity.owner %>
-        <%= render_activity activity %>
-    </p>
-<% end %>

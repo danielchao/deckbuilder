@@ -1,5 +1,5 @@
 body {
-    background-image: url("/assets/texture.jpg");
+    background-image: url("/assets/backing.png");
 }
 
 .field_with_errors {
@@ -84,4 +84,13 @@ h1{
 
 #list-cards {
     width: 100%;
+}
+
+.main-img {
+    box-shadow: 5px #888888;
+    background-color: #DEDEDE
+}
+
+.caption {
+    color: white;
 }
