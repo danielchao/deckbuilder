@@ -16,7 +16,8 @@
     <div class="content" data-section-content>
         <%= form_for :card, url: query_card_path, html: { id: "search-form" } do |f| %>
             <div class="small-1 columns">
-                <label for="card[name]"><img src="/assets/icons/search.png" alt="search" /></label>
+                <label for="card[name]"><%= image_tag "icons/search.png" %></label>
+                            
             </div>
             <div class="small-11 columns">
                 <%= f.text_field :name %>
