@@ -1,15 +1,17 @@
 <h2>All Users</h2>
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Actions</th>
-    </tr>
+<table id="user-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
     <% @users.each do |user| %>
         <tr>
-            <th><%= user.name %></th>
-            <th><%= user.email %></th>
-            <th><%= link_to "Decks", user_path(user), class: "button small" %></th>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= link_to "Decks", user_path(user), class: "button small" %></td>
         </tr>
     <% end %>
 </table>

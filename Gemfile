@@ -22,6 +22,11 @@ gem 'zurb-foundation'
 gem 'public_activity', github: 'pokonski/public_activity'
 gem 'hirb'
 
+group :production do 
+    gem 'pg', '0.15.1'
+    gem 'rails_12factor', '0.0.2'
+end
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 

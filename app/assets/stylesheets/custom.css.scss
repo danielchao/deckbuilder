@@ -84,13 +84,23 @@ h1{
 
 #list-cards {
     width: 100%;
+    border: 0px;
+
 }
 
-.main-img {
+.orbit-container {
     box-shadow: 5px #888888;
-    background-color: #DEDEDE
+    background-color: #DEDEDE;
 }
 
 .caption {
     color: white;
+}
+
+fieldset {
+    border: 1px dotted grey;
+}
+
+#user-table {
+    width: 100%;
 }
